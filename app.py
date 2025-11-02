@@ -72,7 +72,7 @@ def extract_features(y, sr=22050):
 
 # --- Tampilan UI (DIPERBARUI) ---
 st.title("🎙️ Detektor Perintah Pintu")
-st.write("Klik ikon mikrofon untuk merekam perintah 'Open' atau 'Close', lalu klik lagi untuk berhenti.")
+st.write("Klik ikon mikrofon untuk merekam perintah 'Buka' atau 'Tutup', lalu klik lagi untuk berhenti.")
 
 # Label kelas (sesuai train_model.py)
 class_labels = {0: "close", 1: "noise", 2: "open"}
