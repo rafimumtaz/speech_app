@@ -1,0 +1,7 @@
+streamlit
+pandas
+scikit-learn
+librosa
+joblib
+pyaudio
+streamlit-audiorecorder
