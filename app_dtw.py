@@ -21,7 +21,6 @@ def load_references():
 
 references = load_references()
 
-# --- Fungsi Ekstraksi Fitur (Sama persis dengan process_references.py) ---
 def extract_features_dtw(y, sr=22050):
     try:
         # Trim silence
@@ -32,7 +31,7 @@ def extract_features_dtw(y, sr=22050):
             
         # Ekstrak MFCC tanpa rata-rata
         mfcc = librosa.feature.mfcc(y=y_trimmed, sr=sr, n_mfcc=13)
-        return mfcc.T # Transpose agar (Waktu, Fitur)
+        return mfcc.T # Transpose untuk DTW
     except Exception:
         return None
 
@@ -41,7 +40,6 @@ def predict_with_dtw(input_features, reference_data):
     min_distance = float('inf')
     prediction = "noise"
     
-    # Bandingkan dengan semua referensi 'open'
     for ref in reference_data['open']:
         # Hitung jarak DTW
         distance, _ = fastdtw(input_features, ref, dist=euclidean)
@@ -58,11 +56,9 @@ def predict_with_dtw(input_features, reference_data):
             
     return prediction, min_distance
 
-# --- UI Streamlit ---
 st.title("📏 Identifikasi Suara dengan DTW")
-st.write("Membandingkan suara Anda dengan 200 data referensi menggunakan Dynamic Time Warping.")
+st.write("Membandingkan suara dengan 200 data referensi menggunakan Dynamic Time Warping.")
 
-# CSS untuk status
 st.markdown("""
 <style>
 .status-box { padding: 20px; border-radius: 10px; text-align: center; color: white; font-weight: bold; font-size: 20px; }
