@@ -5,3 +5,5 @@ librosa
 joblib
 pyaudio
 streamlit-audiorecorder
+fastdtw
+scipy

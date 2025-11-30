@@ -3,9 +3,8 @@ import numpy as np
 import librosa
 import joblib
 import io
-from audiorecorder import audiorecorder # (BARU) Impor library baru
+from audiorecorder import audiorecorder 
 
-# --- Konfigurasi Halaman & CSS (Sama seperti sebelumnya) ---
 st.set_page_config(
     page_title="Detektor Perintah Pintu",
     page_icon="🎙️",
@@ -51,9 +50,8 @@ def load_models():
 
 model, scaler = load_models()
 
-RMS_THRESHOLD = 0.005 # Ambang batas keheningan
+RMS_THRESHOLD = 0.005 
 
-# --- Fungsi Ekstraksi Fitur (Sama seperti v10) ---
 def extract_features(y, sr=22050):
     try:
         y_trimmed, _ = librosa.effects.trim(y, top_db=25)
@@ -70,15 +68,12 @@ def extract_features(y, sr=22050):
     except Exception:
         return None
 
-# --- Tampilan UI (DIPERBARUI) ---
 st.title("🎙️ Detektor Perintah Pintu")
 st.write("Klik ikon mikrofon untuk merekam perintah 'Buka' atau 'Tutup', lalu klik lagi untuk berhenti.")
 
-# Label kelas (sesuai train_model.py)
 class_labels = {0: "close", 1: "noise", 2: "open"}
 
 if model is not None:
-    # (BARU) Komponen Perekam Audio
     audio = audiorecorder("Klik untuk Berbicara", "Merekam... (Klik lagi untuk stop)")
 
     # Tempat untuk menampilkan status
@@ -122,11 +117,8 @@ if model is not None:
                 '<div class="status-container status-noise"><span class="status-text">Perintah tidak dikenali (Noise).</span></div>',
                 unsafe_allow_html=True
             )
-        
-        # Tampilkan pemutar audio untuk debugging (opsional)
         st.audio(audio_bytes)
 else:
-    # Tampilan default saat menunggu rekaman
     status_placeholder.markdown(
         '<div class="status-container status-noise"><span class="status-text">...</span></div>',
         unsafe_allow_html=True
